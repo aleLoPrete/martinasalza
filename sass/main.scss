@@ -250,13 +250,13 @@ h3 { font-size: 1.5rem; }
 .nav-mobile {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0; // inset: 0 not supported before iOS 14.1
   z-index: 99;
   background: rgba($ink, 0.97);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 3rem; // flexbox gap — supported iOS 14.5+; older devices fall back gracefully
 
   &.open {
     display: flex;
@@ -272,6 +272,7 @@ h3 { font-size: 1.5rem; }
       font-family: $font-display;
       font-size: 2rem;
       color: rgba($offwhite, 0.7);
+      -webkit-tap-highlight-color: transparent;
       transition: color 0.2s;
 
       &:hover {
@@ -290,6 +291,7 @@ h3 { font-size: 1.5rem; }
 
     a {
       color: rgba($offwhite, 0.4);
+      -webkit-tap-highlight-color: transparent;
       transition: color 0.2s;
 
       &:hover {
@@ -345,18 +347,24 @@ h3 { font-size: 1.5rem; }
 .hero {
   position: relative;
   height: 100vh;
+  height: 100svh; // safe viewport height — accounts for iOS browser chrome
   min-height: 620px;
   background-color: $ink;
   background-image: url('https://images.unsplash.com/photo-1589982790148-3b281287d529?w=1920&q=85&fit=crop');
   background-size: cover;
   background-position: center 60%;
-  background-attachment: fixed;
+  background-attachment: scroll; // safe default — fixed not supported on iOS Safari
+
+  // Parallax only on devices with a real pointer (non-touch)
+  @media (hover: hover) and (pointer: fine) {
+    background-attachment: fixed;
+  }
 
   // Dark overlay so image reads as moody/dim
   &::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0; // inset: 0 not supported before iOS 14.1
     background: rgba($ink, 0.78);
     z-index: 0;
     pointer-events: none;
@@ -377,13 +385,14 @@ h3 { font-size: 1.5rem; }
 
   &__title {
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0; // inset: 0 not supported before iOS 14.1
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
 
@@ -487,9 +496,14 @@ h3 { font-size: 1.5rem; }
   &__image {
     img {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      height: 220px; // fallback for browsers without aspect-ratio (pre-iOS 15)
       object-fit: cover;
       opacity: 0.85;
+
+      @supports (aspect-ratio: 4/3) {
+        height: auto;
+        aspect-ratio: 4 / 3;
+      }
     }
   }
 
@@ -590,6 +604,7 @@ h3 { font-size: 1.5rem; }
 
   @media (max-width: 640px) {
     padding-bottom: 7rem;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
   }
   position: relative;
 
@@ -633,6 +648,7 @@ h3 { font-size: 1.5rem; }
   .nav {
     top: auto;
     bottom: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); // iPhone home indicator
 
     &__inner  { justify-content: flex-end; }
     &__logo   { display: none; }
@@ -657,8 +673,6 @@ h3 { font-size: 1.5rem; }
 
     .gallery__item:first-child {
       grid-column: span 1;
-
-      img { aspect-ratio: 4 / 3; }
     }
   }
 
