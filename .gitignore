@@ -1,0 +1,27 @@
+# Zola build output
+public/
+
+# Sass cache (from local npx sass compilation)
+.sass-cache/
+*.css.map
+
+# Node (npx sass)
+node_modules/
+package.json
+package-lock.json
+
+# OS
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Internal
+specsmd/

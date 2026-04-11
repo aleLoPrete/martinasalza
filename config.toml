@@ -1,0 +1,15 @@
+base_url = "https://martinasalza.github.io"
+title = "Martina Salza"
+description = "Aerial circus artist — Trapeze Ballant, Aerial Hoop, Hula Hoop"
+default_language = "en"
+compile_sass = true
+minify_html = false
+
+[languages.it]
+title = "Martina Salza"
+description = "Artista di circo aereo — Trapezio Ballant, Cerchio Aereo, Hula Hoop"
+
+[extra]
+# Fill these in when ready
+email = ""
+instagram = ""

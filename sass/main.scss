@@ -1,0 +1,669 @@
+// ─── Static vars (never change with theme) ────────────────────────────────────
+
+$ink:          #1A1A1A;
+$offwhite:     #FAF7F2;
+$font-display: 'UnifrakturCook', Georgia, serif;
+$font-body:    'Inter', Arial, sans-serif;
+$container-max: 1200px;
+
+// ─── Theme tokens ─────────────────────────────────────────────────────────────
+
+:root {
+  --bg:         #FAF7F2;
+  --surface:    #FFFFFF;
+  --text:       #1A1A1A;
+  --text-muted: #6B6B6B;
+  --border:     rgba(0, 0, 0, 0.08);
+}
+
+html.dark {
+  --bg:         #111111;
+  --surface:    #191919;
+  --text:       #E5E2DC;
+  --text-muted: #888888;
+  --border:     rgba(255, 255, 255, 0.08);
+}
+
+// ─── Reset & Base ─────────────────────────────────────────────────────────────
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-body;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+h1, h2, h3 {
+  font-family: $font-display;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: center;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.5rem; }
+
+// ─── Keyframes ────────────────────────────────────────────────────────────────
+
+@keyframes liquid-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// ─── Scroll Reveal ────────────────────────────────────────────────────────────
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s, transform 0.9s;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// ─── Utilities ────────────────────────────────────────────────────────────────
+
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 7rem 0;
+  background: var(--bg);
+  position: relative;
+}
+
+.section__title {
+  margin-bottom: 3rem;
+}
+
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+
+.nav {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: calc(100% - 2rem);
+  max-width: 680px;
+  background: rgba($ink, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+
+  &__inner {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+  }
+
+  &__logo {
+    font-family: $font-display;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $offwhite;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__links {
+    display: flex;
+    gap: 2rem;
+
+    a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba($offwhite, 0.4);
+      transition: color 0.2s;
+
+      &:hover {
+        color: $offwhite;
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__lang {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+
+    a {
+      color: rgba($offwhite, 0.4);
+      transition: color 0.2s;
+
+      &:hover {
+        color: $offwhite;
+      }
+    }
+
+    &--active {
+      color: $offwhite;
+    }
+  }
+
+  &__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+
+    span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: $offwhite;
+      transition: transform 0.25s ease;
+    }
+
+    &.active span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
+    &.active span:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
+  }
+}
+
+// ─── Theme Toggle Button ──────────────────────────────────────────────────────
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: rgba($offwhite, 0.4);
+  transition: color 0.2s;
+
+  &:hover {
+    color: $offwhite;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: square;
+  }
+
+  .icon-sun  { display: none; }
+  .icon-moon { display: block; }
+
+  html.dark & {
+    .icon-sun  { display: block; }
+    .icon-moon { display: none; }
+  }
+}
+
+// ─── Mobile Nav Overlay ───────────────────────────────────────────────────────
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba($ink, 0.97);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+
+  &.open {
+    display: flex;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+
+    a {
+      font-family: $font-display;
+      font-size: 2rem;
+      color: rgba($offwhite, 0.7);
+      transition: color 0.2s;
+
+      &:hover {
+        color: $offwhite;
+      }
+    }
+  }
+
+  &__lang {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+
+    a {
+      color: rgba($offwhite, 0.4);
+      transition: color 0.2s;
+
+      &:hover {
+        color: $offwhite;
+      }
+    }
+
+    &--active {
+      color: $offwhite;
+    }
+  }
+
+  &__theme {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba($offwhite, 0.4);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $offwhite;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: square;
+    }
+
+    .icon-sun  { display: none; }
+    .icon-moon { display: block; }
+
+    html.dark & {
+      .icon-sun  { display: block; }
+      .icon-moon { display: none; }
+    }
+
+    .label-light { display: none; }
+  }
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  background-color: $ink;
+  background-image: url('https://images.unsplash.com/photo-1589982790148-3b281287d529?w=1920&q=85&fit=crop');
+  background-size: cover;
+  background-position: center 60%;
+  background-attachment: fixed;
+
+  // Dark overlay so image reads as moody/dim
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba($ink, 0.78);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // Gradient fade at bottom into section below
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, $ink);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__title {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      white-space: nowrap;
+
+      span {
+        display: inline;
+      }
+    }
+  }
+
+  &__name--gradient {
+    background: linear-gradient(
+      120deg,
+      #fff0b0 0%,
+      #ffb12f 18%,
+      #ff8c42 34%,
+      #e8604c 50%,
+      #ff8c42 66%,
+      #ffb12f 82%,
+      #fff0b0 100%
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: liquid-shimmer 15s ease infinite;
+  }
+
+  &__name--plain {
+    color: $offwhite;
+  }
+
+  &__tagline {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba($offwhite, 0.5);
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+// ─── About ────────────────────────────────────────────────────────────────────
+
+.about {
+  &__text {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: left;
+
+    p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 2.25rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+.credentials {
+  list-style: none;
+  border-top: 1px solid var(--border);
+
+  li {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+
+    &::before {
+      content: '— ';
+      color: var(--text-muted);
+    }
+  }
+}
+
+// ─── Acts ─────────────────────────────────────────────────────────────────────
+
+.acts__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.act-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &__image {
+    img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+  }
+
+  &__body {
+    padding: 1.75rem;
+  }
+
+  &__title {
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  &__text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+}
+
+// ─── Gallery ──────────────────────────────────────────────────────────────────
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 280px;
+  gap: 0.5rem;
+}
+
+.gallery__item {
+  overflow: hidden;
+  border-radius: 0.5rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+  }
+
+  &:first-child {
+    grid-column: span 2;
+  }
+}
+
+// ─── Contact ──────────────────────────────────────────────────────────────────
+
+.contact {
+  &__inner {
+    max-width: 560px;
+  }
+
+  &__text {
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  &__link,
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  &__link {
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+
+  &__placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+    opacity: 0.4;
+  }
+
+  &__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 5rem;
+  background: var(--bg);
+
+  @media (max-width: 640px) {
+    padding-bottom: 7rem;
+  }
+  position: relative;
+
+  &__inner {
+    text-align: center;
+  }
+
+  &__name {
+    font-family: $font-display;
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__sub {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 860px) {
+  .acts__grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    .gallery__item:first-child {
+      grid-column: span 2;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    top: auto;
+    bottom: 1.25rem;
+
+    &__inner  { justify-content: flex-end; }
+    &__logo   { display: none; }
+    &__links  { display: none; }
+    &__lang   { display: none; }
+
+    .theme-toggle { display: none; }
+
+    &__toggle { display: flex; }
+  }
+
+  .hero__title h1 {
+    font-size: 2.25rem;
+    white-space: normal;
+    text-align: center;
+
+    span { display: block; }
+  }
+
+  .gallery__grid {
+    grid-template-columns: 1fr;
+
+    .gallery__item:first-child {
+      grid-column: span 1;
+
+      img { aspect-ratio: 4 / 3; }
+    }
+  }
+
+  .section { padding: 4.5rem 0; }
+
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.25rem; }
+}
