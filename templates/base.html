@@ -18,8 +18,9 @@
       if (!localStorage.getItem('lang-redirected')) {
         localStorage.setItem('lang-redirected', '1');
         var lang = (navigator.language || '').toLowerCase();
-        if (lang.startsWith('it') && !location.pathname.startsWith('/it')) {
-          location.replace('/it/');
+        var itPath = '{{ get_url(path="/it/") }}';
+        if (lang.startsWith('it') && !location.pathname.startsWith(new URL(itPath).pathname)) {
+          location.replace(itPath);
         }
       }
     })();
