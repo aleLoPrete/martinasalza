@@ -350,7 +350,7 @@ h3 { font-size: 1.5rem; }
   height: 100svh; // safe viewport height — accounts for iOS browser chrome
   min-height: 620px;
   background-color: $ink;
-  background-image: url('https://images.unsplash.com/photo-1589982790148-3b281287d529?w=1920&q=85&fit=crop');
+  // background-image set inline via template (for base_url awareness)
   background-size: cover;
   background-position: center 60%;
   background-attachment: scroll; // safe default — fixed not supported on iOS Safari
