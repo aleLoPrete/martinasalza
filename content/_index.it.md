@@ -27,13 +27,13 @@ acts_title = "Numeri"
 gallery_title = "Galleria"
 
 # Contact
-contact_title = "Contatti e Prenotazioni"
-contact_text = "Per prenotazioni, collaborazioni e richieste stampa, scrivimi."
+contact_title = "Contatti"
+contact_text = ""
 contact_email_label = "Email"
 contact_instagram_label = "Instagram"
 
 # Footer
-footer_sub = "Artista di circo aereo · Diplomata a Flic Scuola di Circo · Studentessa ENC"
+footer_sub = "Artista di circo contemporaneo."
 
 # Arrays of tables must come last in TOML
 

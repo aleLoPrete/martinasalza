@@ -70,7 +70,7 @@
 <section class="contact section" id="contact">
   <div class="container contact__inner">
     <h2 class="section__title">{{ section.extra.contact_title }}</h2>
-    <p class="contact__text">{{ section.extra.contact_text }}</p>
+    {% if section.extra.contact_text %}<p class="contact__text">{{ section.extra.contact_text }}</p>{% endif %}
 
     {% if config.extra.email %}
     <a href="mailto:{{ config.extra.email }}" class="contact__link">
