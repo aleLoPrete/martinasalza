@@ -12,6 +12,7 @@ nav_contact = "Contact"
 # Hero
 hero_tagline = "Aerial circus artist"
 hero_cta = "Book a performance"
+coming_soon = "more coming soon..."
 
 # About
 about_title = "About"

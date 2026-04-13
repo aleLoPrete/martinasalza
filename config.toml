@@ -1,15 +1,15 @@
 base_url = "https://aleloPrete.github.io/martinasalza"
 title = "Martina Salza"
-description = "Aerial circus artist — Trapeze Ballant, Aerial Hoop, Hula Hoop"
+description = "Aerial circus artist — Trapeze Ballant & Hula Hoop"
 default_language = "en"
 compile_sass = true
 minify_html = false
 
 [languages.it]
 title = "Martina Salza"
-description = "Artista di circo aereo — Trapezio Ballant, Cerchio Aereo, Hula Hoop"
+description = "Artista di circo aereo — Trapezio Ballant & Hula Hoop"
 
 [extra]
 # Fill these in when ready
-email = ""
-instagram = ""
+email = "martinasalzacirque@gmail.com"
+instagram = "martina.salza"
